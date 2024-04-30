@@ -1,0 +1,446 @@
+##Command lines for RAD-seq data analysis (Data from Piper_nigrum_RAD library)
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+##Demultiplexing of raw data
+
+#Extraction from the original file 
+#!/bin/bash
+Pipe -n 19 java -Xmx60g -Xms60g -jar /usr/local/illumina2bam-master/dist/BamIndexDecoder.jar OUTPUT_DIR=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/ OUTPUT_PREFIX=PipRAD6 OUTPUT_FORMAT=bam BARCODE_TAG_NAME=B2 INPUT=/media/uni/data1/Piper_RAD/raw_data/PipRAD6_AAAFWYMM5_1_09-11-2020.bam BARCODE_FILE=/media/uni/data1/Piper_RAD/demultiplexing/indices/indexP1c MAX_RECORDS_IN_RAM=50000000 MAX_MISMATCHES=2 CREATE_MD5_FILE=true COMPRESSION_LEVEL=9 METRICS_FILE=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/PipRAD6metrics.tab
+
+#the next commands demultiplex the subpools produced by the previous command on the side BC (as compared to B2 which was used before). However this is not specified as it is the default.
+Pipe -n 19 java -Xmx60g -Xms60g -jar /usr/local/illumina2bam-master/dist/BamIndexDecoder.jar OUTPUT_DIR=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/ OUTPUT_PREFIX=PipRAD6_506 OUTPUT_FORMAT=bam INPUT=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/PipRAD6#506.bam BARCODE_FILE=/media/uni/data1/Piper_RAD/demultiplexing/indices/indexP2 MAX_RECORDS_IN_RAM=50000000 MAX_MISMATCHES=1 CREATE_MD5_FILE=true COMPRESSION_LEVEL=9 METRICS_FILE=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/PipRAD6_506metrics.tab
+
+Pipe -n 19 java -Xmx60g -Xms60g -jar /usr/local/illumina2bam-master/dist/BamIndexDecoder.jar OUTPUT_DIR=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/ OUTPUT_PREFIX=PipRAD6_507 OUTPUT_FORMAT=bam INPUT=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/PipRAD6#507.bam BARCODE_FILE=/media/uni/data1/Piper_RAD/demultiplexing/indices/indexP2 MAX_RECORDS_IN_RAM=50000000 MAX_MISMATCHES=1 CREATE_MD5_FILE=true COMPRESSION_LEVEL=9 METRICS_FILE=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/PipRAD6_507metrics.tab
+
+Pipe -n 19 java -Xmx60g -Xms60g -jar /usr/local/illumina2bam-master/dist/BamIndexDecoder.jar OUTPUT_DIR=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/ OUTPUT_PREFIX=PipRAD6_508 OUTPUT_FORMAT=bam INPUT=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/PipRAD6#508.bam BARCODE_FILE=/media/uni/data1/Piper_RAD/demultiplexing/indices/indexP2 MAX_RECORDS_IN_RAM=50000000 MAX_MISMATCHES=1 CREATE_MD5_FILE=true COMPRESSION_LEVEL=9 METRICS_FILE=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/PipRAD6_508metrics.tab
+
+
+#Conversion to fastq 
+#!/bin/bash                 
+#506
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_2.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_2_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_2_2.fastq
+
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_3.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_3_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_3_2.fastq
+
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_6.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_6_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_6_2.fastq
+
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_9.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_9_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_9_2.fastq
+
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_10.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_10_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_10_2.fastq
+
+#507
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_2.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_2_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_2_2.fastq
+
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_3.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_3_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_3_2.fastq
+
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_6.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_6_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_6_2.fastq
+
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_9.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_9_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_9_2.fastq
+
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_10.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_10_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_10_2.fastq
+
+#508
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_2.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_2_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_2_2.fastq
+
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_3.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_3_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_3_2.fastq
+
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_6.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_6_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_6_2.fastq
+
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_9.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_9_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_9_2.fastq
+
+java -jar /usr/local/picard.jar SamToFastq I=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_10.bam FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_10_1.fastq SECOND_END_FASTQ=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_10_2.fastq
+
+
+#Process radtags 
+#!/bin/bash
+#506
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_2_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_2_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/1 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_506#P2_2 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_3_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_3_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/2 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_506#P2_3 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_6_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_6_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/3 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_506#P2_6 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_9_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_9_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/4 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_506#P2_9 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_10_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/506/PipRAD6_506#P2_10_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/5 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_506#P2_10 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+#507
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_2_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_2_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/6 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_507#P2_2 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_3_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_3_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/7 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_507#P2_3 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_6_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_6_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/8 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_507#P2_6 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_9_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_9_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/9 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_507#P2_9 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_10_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/507/PipRAD6_507#P2_10_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/10 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_507#P2_10 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+#508
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_2_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_2_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/11 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_508#P2_2 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_3_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_3_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/12 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_508#P2_3 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_6_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_6_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/13 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_508#P2_6 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_9_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_9_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/14 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_508#P2_9 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+process_radtags -1 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_10_1.fastq -2 /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/508/PipRAD6_508#P2_10_2.fastq -o /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/15 -b /media/uni/data1/Piper_RAD/demultiplexing/indices/RAD6_508#P2_10 -e pstI -E phred33 -r -c -q --barcode_dist_1 3
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+##Mapping to the reference genome
+
+#Check and trimming of the T position (If present) at the beginning of R2 reads
+#Trimming T in R2 before mapping
+for file in *.2.fq; do echo $file; Pipe -n 19 java -jar /usr/local/Trimmomatic-0.39/trimmomatic-0.39.jar SE -phred33 $file ${file/.2.fq/.2T.fq} HEADCROP:1; done
+
+#Mapping with Bwa mem 
+#for mapping please take both .1.fq and .2T.fq and indicate the correct path to the reference genome
+for file in *.1.fq; do echo $file; Pipe -n 19 bwa mem -M -t 20 /media/uni/data1/Piper_RAD/Reference/Piper_nigrum.genome.fa $file ${file/.1.fq/.2T.fq} > ./bam/${file/.1.fq/.sam}; done
+
+#Sorting the aligned SAM by coordinate 
+for file in *.sam; do echo $file; java -Xmx60G -jar /usr/local/picard.jar SortSam I=$file O=./Mapped_sort/${file/.sam/.bam} SO=coordinate; done
+
+#Add read groups 
+cd ./Mapped_sort/
+for file in *.bam; do echo $file; Pipe -n 19 java -Xmx60G -jar /usr/local/picard.jar AddOrReplaceReadGroups I=$file O=/media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/Mapped/Mapped_sort/Mapped_SortGroup/${file/.bam/.gr.bam} RGID=${file/.bam/} RGLB=${file/.bam/} RGPL=illumina RGPU=${file/.bam/} RGSM=${file/.bam/}; done
+
+#Indexing the bam files
+for file in *.bam; do echo $file; samtools index $file; done
+
+#Obtaining mapping statistics 
+1)Mapping rates (You can find it in the file /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/Mapped/Mapped_sort/mapping_rates.sh)
+for i in *.bam; do
+    echo $i >> output
+    bamtools stats -in $i >> Mapping_rates.txt
+done
+egrep "^Mapped" Mapping_rates.txt #Get lines with Mapping read number
+
+2)Mapping coverage (You can find it in the file /media/uni/data1/Piper_RAD/Piper_RAD6/Data_c/samples/Mapped/Mapped_sort/coverage.sh)
+for file in *.bam; do echo $file; samtools depth  $file  |  awk '{sum+=$3} END { print "Average = ",sum/NR}'; done
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+##Variant calling in GATK (GATK version 3.8.1)
+
+#Index the reference genome sequence
+samtools faidx Piper_nigrum.genome.fa
+
+#Create the .dict file for the reference genome
+java -jar /usr/local/picard.jar CreateSequenceDictionary -R Piper_nigrum.genome.fa
+
+#Run in parallel with one thread per task 
+nohup bash (script) > (textfile) & #Use this to run in background and do the process in parallel
+
+#Note: The GATK depends on java 1.8 to run correctly
+#Note: Allocate the max memory to be applied in the job in accord with the available computer memory (ex -Xmx60G, to use 60G of RAM)
+
+#Indel realignment
+#Create intervals file
+java -Xmx60G -jar /usr/local/GenomeAnalysisTK-3.8-1/GenomeAnalysisTK.jar -T RealignerTargetCreator -R /media/uni/data1/Piper_RAD/Reference/Piper_nigrum.genome.fa -I PNGa_1.gr.bam -o PNGa_1.intervals
+
+#Indel realignment with intervals file
+java -Xmx60G -jar /usr/local/GenomeAnalysisTK-3.8-1/GenomeAnalysisTK.jar -T IndelRealigner -R /media/uni/data1/Piper_RAD/Reference/Piper_nigrum.genome.fa -I PNGa_1.gr.bam -targetIntervals PNGa_1.intervals -maxReads 100000 -o /media/uni/data1/Piper_RAD/Bam_files/indel/realigned/PNGa_1.gr.bam
+
+#HaplotypeCaller (Variant calling per file in GVCF mode) 
+for file in *.bam; do echo $file; java -Xmx60g -jar /usr/local/GenomeAnalysisTK-3.8-1/GenomeAnalysisTK.jar -T HaplotypeCaller -R /media/uni/data1/Piper_RAD/Reference/Piper_nigrum.genome.fa -I $file -ERC GVCF -nct 8 -ploidy 4 -variant_index_type LINEAR -variant_index_parameter 128000 -o /media/uni/data1/Piper_RAD/Bam_files/New/GVCF/${file/.bam/.g.vcf}; done
+
+#GenotypeGVCF 
+java -Xmx1200g -jar /apps/gatk/3.8.1.0/GenomeAnalysisTK.jar -T GenotypeGVCFs -R /scratch/botany/cauz_Nicotiana/Piper/Reference/Piper_nigrum.genome.fa --variant gvcfFileList.list  -o /scratch/botany/cauz/slrms/GenotypeGVCF/Piper/Populations/PiperPop_GVCFAll.vcf
+
+#Filter to remove for missing data (Positions not present in at least 50% of the individuals)
+vcftools --vcf Pip_JointSim.vcf --max-missing 0.5 --recode-INFO-all --recode --out Pip_JointSim_50miss
+
+#VariantFiltration 
+java -Xmx100g -jar /apps/gatk/3.8.1.0/GenomeAnalysisTK.jar -T VariantFiltration -R /proj/Piper/Reference/Piper_nigrum.genome.fa -V Pip_JointSim_50miss.recode.vcf --filterExpression "QUAL < 30.00 || QD < 2.0 || FS > 60.0 || MQ < 40.0 || ReadPosRankSum < -8.0 || MQRankSum < -12.5 || DP < 500 -dcov 200 --filterName "my" -o ./PiperPopGVCFAll_FilteredGATK.vcf
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+##Aditional filterings and RAxML phylogenetic tree
+
+##Select just SNPs that Passed the filtering in VariantFiltration/GATK
+bcftools view -f PASS PiperPopGVCFAll_FilteredGATK.vcf > PiperPopGVCFAll_FilteredGATK_NewPASS.vcf 
+
+#Check the ts/tv ratios of filtered SNPs
+java -jar /usr/local/snpEff/SnpSift.jar tstv  Pipoutfiltered_PASS_GATK.vcf > GATKfiltered_PASStstv 
+
+#Filter by maf, depth and missing data 
+vcftools --vcf PiperPopGVCFAll_FilteredGATK_NewPASS.vcf --maf 0.011 --min-meanDP 25 --max-meanDP 30 --max-missing 0.8 --recode-INFO-all --recode --out 20miss 
+
+#Filter by maximum observed heterozigosity
+populations -V 20miss.recode.vcf --max_obs_het 0.65 --vcf -O ./ -t 8 
+
+#Check the number of singletons 
+vcftools --vcf ./PiperPopGVCFAll_FilteredGATK_NewPASS.vcf --singletons 
+
+#count the ocurrence of a string in the singletons 
+awk '{print $5}' file | sort | uniq -c 
+
+#For phylogenetic inference in RAxML
+Convert the vcf file to RAxML phylip file using PGDSpider
+
+#Perform ascertainment bias correction and remove invariant sites prior to the phylogenetic analysis
+python3 /usr/local/raxml_ascbias-master/ascbias.py --phylip Piper.raxml.txt -o Piper.ascbias.phy
+
+#Phylogenetic analysis in RAxML
+raxmlHPC-PTHREADS-AVX2 -T 32 -f a -m ASC_GTRCAT --asc-corr=lewis -U -V -p 12345 -x 12345 -# 1000 -s /scratch/cauz/Piper/Piper.ascbias.phy -n Piper.raxml
+
+Edit the tree using FigTree 
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+##Variant calling in ANGSD (angsd version 0.930) and coancestry inference
+
+#Create a list of mapped bam files to be used in the subsequent analysis 
+ls *.bam > list #replace the name of the list by indlist or other particular name
+
+#Infer genotype likelihoods (adjust -minInd and -minMaf):
+#With GATK model
+/usr/local/angsd/angsd -nThreads 10 -bam list -GL 2 -doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 -minMapQ 20 -minQ 20 -minInd 75 -minMaf 0.011 -doGlf 2 -out ./ANGSD_Results/gatk75
+        Obs: copy the result
+	-> Total number of sites analyzed: 603943622
+	-> Number of sites retained after filtering: 5428488 
+ 
+#calculate covariance matrix. 
+python /usr/local/pcangsd/pcangsd.py -beagle gatk175.beagle.gz -o g175 -minMaf 0.011
+
+####Plot the results in R or Rstudio as Coancestry Heatmap:
+#Enter the data
+individuals <- read.table("indlist")
+ind <- paste0(individuals[,1])
+heatmapmatrix <- read.csv("g175.cov", stringsAsFactors = FALSE, header=FALSE)
+data <- heatmapmatrix
+data <- as.matrix(data)
+
+#Plot heatmap. Adjust the colours accordingly: This means that you can add more labels in the colour path depending on the scale!!!
+library(gplots)
+heatmap.2(data, trace="none", Rowv=TRUE, Colv=TRUE, cexRow=0.8,cexCol = 0.8, labRow = ind, labCol = ind, col= colorRampPalette(c("lemonchiffon", "lemonchiffon", "lemonchiffon", "lemonchiffon", "lemonchiffon", "lemonchiffon", "lemonchiffon", "lemonchiffon", "yellow", "yellow", "red", "red", "magenta", "magenta", "midnightblue", "midnightblue", "black" , "black", "black", "black"))(100))
+
+####Optional - Adttionaly also plot the results as PCA:
+#Example
+ge50 <- eigen(gatk50)
+pop <- read.table("poplist")
+ge50$values[1:5]
+plot(ge50$vectors[,c(1,2)], col=pop[,1], xlab="PC1 (XXX%)", ylab="PC2 (YYY%)")
+legend("bottomright", fill=1:20, border=0, levels(pop[,1]))
+#Check the other vectors as well if necessary.
+
+#This is the original way to represent the PCAs, but with only 8 colours. Here is an alternative:
+install.packages("ggplot2")
+library(ggplot2)
+samples <- paste0(pop[,1])
+theme_set(theme_bw())
+gplot(ge50$vectors[,c(1)], ge50$vectors[,c(2)], colour=samples, main="Angsd-based PCA, with GATK, min 50% ind, maf 0.012", xlab="PC1 (XXX%)", ylab="PC2 (YYY%)")
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+####inferring admixture proportions in NGSadmix
+
+#First perform the varriant calling in Angsd as described above
+angsd -nThreads 12 -bam Piper_list.csv -GL 2 -doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 -minMapQ 20 -minQ 20 -minInd 20 -minMaf 0.011 -doGlf 2 -out ./results/gatkPiper
+
+#Select unlinked SNPs from beagle
+
+##To NGSadmix create a bash script *.sh including the content bellow (OBS!!! Remember to change the script in accordance with your data): 
+#!/bin/bash
+
+#/usr/local/NGSadmix/NGSadmix
+
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 1 -minMaf 0.027 -seed 1 -o ./NGSadmix/Occ_1_1
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 1 -minMaf 0.027 -seed 2 -o ./NGSadmix/Occ_1_2
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 1 -minMaf 0.027 -seed 3 -o ./NGSadmix/Occ_1_3
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 1 -minMaf 0.027 -seed 4 -o ./NGSadmix/Occ_1_4
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 1 -minMaf 0.027 -seed 5 -o ./NGSadmix/Occ_1_5
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 1 -minMaf 0.027 -seed 6 -o ./NGSadmix/Occ_1_6
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 1 -minMaf 0.027 -seed 7 -o ./NGSadmix/Occ_1_7
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 1 -minMaf 0.027 -seed 8 -o ./NGSadmix/Occ_1_8
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 1 -minMaf 0.027 -seed 9 -o ./NGSadmix/Occ_1_9
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 1 -minMaf 0.027 -seed 10 -o ./NGSadmix/Occ_1_10
+
+
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 2 -minMaf 0.027 -seed 1 -o ./NGSadmix/Occ_2_1
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 2 -minMaf 0.027 -seed 2 -o ./NGSadmix/Occ_2_2
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 2 -minMaf 0.027 -seed 3 -o ./NGSadmix/Occ_2_3
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 2 -minMaf 0.027 -seed 4 -o ./NGSadmix/Occ_2_4
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 2 -minMaf 0.027 -seed 5 -o ./NGSadmix/Occ_2_5
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 2 -minMaf 0.027 -seed 6 -o ./NGSadmix/Occ_2_6
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 2 -minMaf 0.027 -seed 7 -o ./NGSadmix/Occ_2_7
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 2 -minMaf 0.027 -seed 8 -o ./NGSadmix/Occ_2_8
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 2 -minMaf 0.027 -seed 9 -o ./NGSadmix/Occ_2_9
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 2 -minMaf 0.027 -seed 10 -o ./NGSadmix/Occ_2_10
+
+
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 3 -minMaf 0.027 -seed 1 -o ./NGSadmix/Occ_3_1
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 3 -minMaf 0.027 -seed 2 -o ./NGSadmix/Occ_3_2
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 3 -minMaf 0.027 -seed 3 -o ./NGSadmix/Occ_3_3
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 3 -minMaf 0.027 -seed 4 -o ./NGSadmix/Occ_3_4
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 3 -minMaf 0.027 -seed 5 -o ./NGSadmix/Occ_3_5
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 3 -minMaf 0.027 -seed 6 -o ./NGSadmix/Occ_3_6
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 3 -minMaf 0.027 -seed 7 -o ./NGSadmix/Occ_3_7
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 3 -minMaf 0.027 -seed 8 -o ./NGSadmix/Occ_3_8
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 3 -minMaf 0.027 -seed 9 -o ./NGSadmix/Occ_3_9
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 3 -minMaf 0.027 -seed 10 -o ./NGSadmix/Occ_3_10
+
+
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 4 -minMaf 0.027 -seed 1 -o ./NGSadmix/Occ_4_1
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 4 -minMaf 0.027 -seed 2 -o ./NGSadmix/Occ_4_2
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 4 -minMaf 0.027 -seed 3 -o ./NGSadmix/Occ_4_3
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 4 -minMaf 0.027 -seed 4 -o ./NGSadmix/Occ_4_4
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 4 -minMaf 0.027 -seed 5 -o ./NGSadmix/Occ_4_5
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 4 -minMaf 0.027 -seed 6 -o ./NGSadmix/Occ_4_6
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 4 -minMaf 0.027 -seed 7 -o ./NGSadmix/Occ_4_7
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 4 -minMaf 0.027 -seed 8 -o ./NGSadmix/Occ_4_8
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 4 -minMaf 0.027 -seed 9 -o ./NGSadmix/Occ_4_9
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 4 -minMaf 0.027 -seed 10 -o ./NGSadmix/Occ_4_10
+
+
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 5 -minMaf 0.027 -seed 1 -o ./NGSadmix/Occ_5_1
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 5 -minMaf 0.027 -seed 2 -o ./NGSadmix/Occ_5_2
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 5 -minMaf 0.027 -seed 3 -o ./NGSadmix/Occ_5_3
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 5 -minMaf 0.027 -seed 4 -o ./NGSadmix/Occ_5_4
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 5 -minMaf 0.027 -seed 5 -o ./NGSadmix/Occ_5_5
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 5 -minMaf 0.027 -seed 6 -o ./NGSadmix/Occ_5_6
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 5 -minMaf 0.027 -seed 7 -o ./NGSadmix/Occ_5_7
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 5 -minMaf 0.027 -seed 8 -o ./NGSadmix/Occ_5_8
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 5 -minMaf 0.027 -seed 9 -o ./NGSadmix/Occ_5_9
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 5 -minMaf 0.027 -seed 10 -o ./NGSadmix/Occ_5_10
+
+
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 6 -minMaf 0.027 -seed 1 -o ./NGSadmix/Occ_6_1
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 6 -minMaf 0.027 -seed 2 -o ./NGSadmix/Occ_6_2
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 6 -minMaf 0.027 -seed 3 -o ./NGSadmix/Occ_6_3
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 6 -minMaf 0.027 -seed 4 -o ./NGSadmix/Occ_6_4
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 6 -minMaf 0.027 -seed 5 -o ./NGSadmix/Occ_6_5
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 6 -minMaf 0.027 -seed 6 -o ./NGSadmix/Occ_6_6
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 6 -minMaf 0.027 -seed 7 -o ./NGSadmix/Occ_6_7
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 6 -minMaf 0.027 -seed 8 -o ./NGSadmix/Occ_6_8
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 6 -minMaf 0.027 -seed 9 -o ./NGSadmix/Occ_6_9
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 6 -minMaf 0.027 -seed 10 -o ./NGSadmix/Occ_6_10
+
+
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 7 -minMaf 0.027 -seed 1 -o ./NGSadmix/Occ_7_1
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 7 -minMaf 0.027 -seed 2 -o ./NGSadmix/Occ_7_2
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 7 -minMaf 0.027 -seed 3 -o ./NGSadmix/Occ_7_3
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 7 -minMaf 0.027 -seed 4 -o ./NGSadmix/Occ_7_4
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 7 -minMaf 0.027 -seed 5 -o ./NGSadmix/Occ_7_5
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 7 -minMaf 0.027 -seed 6 -o ./NGSadmix/Occ_7_6
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 7 -minMaf 0.027 -seed 7 -o ./NGSadmix/Occ_7_7
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 7 -minMaf 0.027 -seed 8 -o ./NGSadmix/Occ_7_8
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 7 -minMaf 0.027 -seed 9 -o ./NGSadmix/Occ_7_9
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 7 -minMaf 0.027 -seed 10 -o ./NGSadmix/Occ_7_10
+
+
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 8 -minMaf 0.027 -seed 1 -o ./NGSadmix/Occ_8_1
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 8 -minMaf 0.027 -seed 2 -o ./NGSadmix/Occ_8_2
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 8 -minMaf 0.027 -seed 3 -o ./NGSadmix/Occ_8_3
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 8 -minMaf 0.027 -seed 4 -o ./NGSadmix/Occ_8_4
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 8 -minMaf 0.027 -seed 5 -o ./NGSadmix/Occ_8_5
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 8 -minMaf 0.027 -seed 6 -o ./NGSadmix/Occ_8_6
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 8 -minMaf 0.027 -seed 7 -o ./NGSadmix/Occ_8_7
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 8 -minMaf 0.027 -seed 8 -o ./NGSadmix/Occ_8_8
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 8 -minMaf 0.027 -seed 9 -o ./NGSadmix/Occ_8_9
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 8 -minMaf 0.027 -seed 10 -o ./NGSadmix/Occ_8_10
+
+
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 9 -minMaf 0.027 -seed 1 -o ./NGSadmix/Occ_9_1
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 9 -minMaf 0.027 -seed 2 -o ./NGSadmix/Occ_9_2
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 9 -minMaf 0.027 -seed 3 -o ./NGSadmix/Occ_9_3
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 9 -minMaf 0.027 -seed 4 -o ./NGSadmix/Occ_9_4
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 9 -minMaf 0.027 -seed 5 -o ./NGSadmix/Occ_9_5
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 9 -minMaf 0.027 -seed 6 -o ./NGSadmix/Occ_9_6
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 9 -minMaf 0.027 -seed 7 -o ./NGSadmix/Occ_9_7
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 9 -minMaf 0.027 -seed 8 -o ./NGSadmix/Occ_9_8
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 9 -minMaf 0.027 -seed 9 -o ./NGSadmix/Occ_9_9
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 9 -minMaf 0.027 -seed 10 -o ./NGSadmix/Occ_9_10
+
+
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 10 -minMaf 0.027 -seed 1 -o ./NGSadmix/Occ_10_1
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 10 -minMaf 0.027 -seed 2 -o ./NGSadmix/Occ_10_2
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 10 -minMaf 0.027 -seed 3 -o ./NGSadmix/Occ_10_3
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 10 -minMaf 0.027 -seed 4 -o ./NGSadmix/Occ_10_4
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 10 -minMaf 0.027 -seed 5 -o ./NGSadmix/Occ_10_5
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 10 -minMaf 0.027 -seed 6 -o ./NGSadmix/Occ_10_6
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 10 -minMaf 0.027 -seed 7 -o ./NGSadmix/Occ_10_7
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 10 -minMaf 0.027 -seed 8 -o ./NGSadmix/Occ_10_8
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 10 -minMaf 0.027 -seed 9 -o ./NGSadmix/Occ_10_9
+/usr/local/NGSadmix/NGSadmix -likes unlinkedOcc_10kb.beagle -K 10 -minMaf 0.027 -seed 10 -o ./NGSadmix/Occ_10_10
+
+
+##After running NGSadmix, create a file with the likelihood values:
+(for log in `ls *.log`; do grep -Po 'like=\K[^ ]+' $log; done) > logfile
+
+##Select the best K model based on the Evanno method, for this purpose enter the logfile in the following website:
+http://clumpak.tau.ac.il/bestK.html
+
+####Plot the results in R or Rstudio:
+#Upload the list with names of individuals
+individuals <- read.table("ListTVH_edt")
+ind <- paste0(individuals[,1])
+
+#Upload the data to be used for the plots, in this case we need the files with the extension qopt
+data <- read.table("Piper_2_1.qopt")
+
+#Plot the results
+library(gplots)
+barplot(t(data), col=c(2:10),space=0, border=NA, ylab="Admixture proportions")
+abline(v=cumsum(sapply(unique(ind),function(x){sum(ind==x)})),col=1,lwd=1.2)
+text(tapply(1:nrow(individuals), individuals, mean), -0.07, srt = -90, cex = 1.3, sort(ind), pos=1, xpd=T)
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+##Private alleles and Imbreeding coefficient
+The number of private alleles and imbreeding coefficient can be obtained from the Stacks package populations 
+
+#Example:
+#First filter the vcf file:
+vcftools --vcf PiperPopGVCFAll_FilteredGATK_NewPASS.vcf --maf 0.011 --min-meanDP 25 --max-meanDP 30 --max-missing 0.8 --recode-INFO-all --recode --out Piper20miss
+
+#Run population from Stacks:
+populations -V Piper20miss.recode.vcf -M ./popmaps/Piperlist_analysis.csv --max_obs_het 0.65 --vcf -O ./ -t 8
+
+
+#Plot the results in R or Rstudio
+#imbreeding coeficient (boxplot)
+
+Piper20miss <- read_csv("/media/uni/data1/Piper_RAD/Results/Imbreeding/Piper20miss.csv")
+
+F <- ggplot(Piper20miss, aes(x = Groups, y = `Inbreeding coefficient (F)`, color= Groups)) + geom_boxplot(outlier.colour = "black")
+F+scale_color_manual(values=c("#0000CC", 
+                               "#C99800", 
+                               "#33FFFF",
+                               "red",
+                               "green"))
+
+#imbreeding coeficient (violinplot)
+p <- ggplot(Piper20miss, aes(x = Groups, y = `Inbreeding coefficient (F)`, fill= Groups)) + geom_violin()  + geom_boxplot(width=0.03, fill="black") + stat_summary(fun=median, geom="point", size=2, color="white")
+
+p+scale_fill_manual(values=c("#0033CC", 
+                              "#FFCC33", 
+                              "#33FFFF",
+                              "#990000",
+                              "#339900"))
+
+
+#Private alleles
+privatealleles <- read_delim/media/uni/data1/Piper_RAD/Results/GATK/GenotypeGVCF/Populations/privatealleles.csv", "\t", escape_double = FALSE, trim_ws = TRUE)
+F <- ggplot(privatealleles, aes(x = Groups, y = 'Private alleles', color= Groups)) + geom_boxplot(outlier.colour = "black")
+F+scale_color_manual(values=c("#0000CC", 
+                               "#C99800", 
+                               "#33FFFF",
+                               "red",
+                               "green",
+				"#996633",
+                                "#CCFF00"))
+
+F <- ggplot(privatealleles, aes(x = Groups, y = `Private alleles`)) + geom_dotplot(binaxis = "y", stackdir = "center")
+F+scale_color_manual(values=c("#0000CC", 
+                               "#C99800", 
+                               "#33FFFF",
+                               "red",
+                               "green",
+				"#996633",
+                                "#CCFF00"))
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
